@@ -10,8 +10,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "@types/pg": "^8.18.0",
+    "dotenv": "^16.4.0",
     "express": "^5.1.0",
-    "dotenv": "^16.4.0"
+    "pg": "^8.20.0",
+    "prisma": "^7.4.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
