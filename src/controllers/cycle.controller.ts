@@ -26,13 +26,15 @@ export async function getCycleById(req: Request, res: Response, next: NextFuncti
 
 export async function createCycle(req: Request, res: Response, next: NextFunction) {
   try {
-    const { cycleEndDate, capacity, paidCount } = req.body as {
+    const { name, cycleEndDate, capacity, paidCount } = req.body as {
+      name: string;
       cycleEndDate: string;
       capacity: number;
       paidCount: number;
     };
     const cycle = await prisma.cycle.create({
       data: {
+        name,
         cycleEndDate: new Date(cycleEndDate),
         capacity,
         paidCount,
@@ -47,7 +49,8 @@ export async function createCycle(req: Request, res: Response, next: NextFunctio
 export async function updateCycle(req: Request, res: Response, next: NextFunction) {
   try {
     const id = req.params["id"] as string;
-    const { cycleEndDate, capacity, paidCount } = req.body as {
+    const { name, cycleEndDate, capacity, paidCount } = req.body as {
+      name?: string;
       cycleEndDate?: string;
       capacity?: number;
       paidCount?: number;
@@ -55,6 +58,7 @@ export async function updateCycle(req: Request, res: Response, next: NextFunctio
     const cycle = await prisma.cycle.update({
       where: { id },
       data: {
+        ...(name !== undefined && { name }),
         ...(cycleEndDate && { cycleEndDate: new Date(cycleEndDate) }),
         ...(capacity !== undefined && { capacity }),
         ...(paidCount !== undefined && { paidCount }),
@@ -78,6 +82,7 @@ export async function deleteCycle(req: Request, res: Response, next: NextFunctio
 
 function formatCycle(cycle: {
   id: string;
+  name: string;
   cycleEndDate: Date;
   capacity: number;
   paidCount: number;
@@ -85,6 +90,7 @@ function formatCycle(cycle: {
 }) {
   return {
     cycle_id: cycle.id,
+    name: cycle.name,
     cycle_end_date: cycle.cycleEndDate.toISOString().split("T")[0],
     capacity: cycle.capacity,
     paid_count: cycle.paidCount,

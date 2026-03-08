@@ -9,6 +9,7 @@ datasource db {
 
 model Cycle {
   id           String   @id @default(cuid())
+  name         String
   cycleEndDate DateTime
   capacity     Int
   paidCount    Int
