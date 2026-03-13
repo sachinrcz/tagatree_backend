@@ -17,6 +17,7 @@
     "express": "^5.1.0",
     "pg": "^8.20.0",
     "prisma": "^7.4.2",
+    "resend": "^6.9.3",
     "stripe": "^20.4.1"
   },
   "devDependencies": {
